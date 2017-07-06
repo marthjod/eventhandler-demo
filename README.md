@@ -23,7 +23,7 @@ kubectl replace --force -f cluster.yaml
 Inspect the components' behavior with, e.g.
 
 ```bash
-kubectl logs <subscriber-pod>
+kubectl logs --tail=0 <pod>
 ```
 
 ## Publisher
@@ -37,7 +37,7 @@ for role in base publisher; do
 done
 ```
 
-Acquire public socket for queue in cluster.
+Find out public queue socket in cluster for building NATS URL.
 
 ```bash
 cluster_ip=$(minikube ip)
@@ -45,7 +45,7 @@ node_port=$(kubectl get services/eventhandler-queue -o go-template='{{(index .sp
 nats_url="nats://$cluster_ip:$node_port"
 ```
 
-And run. CLI args following the container name are passed through to the publisher.
+And run. CLI args following the container name are passed through to the publisher. Environment vars are used to overwrite (part of) its config.
 
 ```bash
 docker run -e NATS_URL=$nats_url eventhandler/publisher --payload='{}'
