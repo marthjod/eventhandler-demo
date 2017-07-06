@@ -49,4 +49,5 @@ And run. CLI args following the container name are passed through to the publish
 
 ```bash
 docker run -e NATS_URL=$nats_url eventhandler/publisher --payload='{}'
+docker run -e NATS_URL=$nats_url eventhandler/publisher --payload='{"check_name": "check_foo"}'
 ```
