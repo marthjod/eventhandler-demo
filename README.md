@@ -38,7 +38,7 @@ nats_url="nats://$cluster_ip:$node_port"
 
 ### Native binary
 
-```
+```bash
 # git clone, go build etc.
 export NATS_URL=$nats_url
 ./eventhandler publish --payload='{"check_name": "check_foo"}'
