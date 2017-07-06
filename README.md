@@ -16,6 +16,8 @@ Run inside the minikube cluster.
 
 ```bash
 kubectl create -f cluster.yaml
+# or, later,
+kubectl replace --force -f cluster.yaml
 ```
 
 Inspect the components' behavior with, e.g.
