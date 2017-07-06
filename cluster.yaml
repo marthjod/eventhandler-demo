@@ -59,7 +59,7 @@ items:
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          args: ["-D"]
+          args: ["--debug"]
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
