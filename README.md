@@ -28,6 +28,24 @@ kubectl logs --tail=0 <pod>
 
 ## Publisher
 
+Find out public queue socket in cluster for building NATS URL. Since `nats_url` is configured in the config file, we have to override it using the appropriate environment variable.
+
+```bash
+cluster_ip=$(minikube ip)
+node_port=$(kubectl get services/eventhandler-queue -o go-template='{{(index .spec.ports 0).nodePort}}')
+nats_url="nats://$cluster_ip:$node_port"
+```
+
+### Native binary
+
+```
+# git clone, go build etc.
+export NATS_URL=$nats_url
+./eventhandler publish --payload='{"check_name": "check_foo"}'
+```
+
+### Docker "binary"
+
 Build (against your _local_ Docker daemon).
 
 ```bash
@@ -37,17 +55,8 @@ for role in base publisher; do
 done
 ```
 
-Find out public queue socket in cluster for building NATS URL.
+And run. CLI args following the container name are passed through to the publisher.
 
 ```bash
-cluster_ip=$(minikube ip)
-node_port=$(kubectl get services/eventhandler-queue -o go-template='{{(index .spec.ports 0).nodePort}}')
-nats_url="nats://$cluster_ip:$node_port"
-```
-
-And run. CLI args following the container name are passed through to the publisher. Environment vars are used to overwrite (part of) its config.
-
-```bash
-docker run -e NATS_URL=$nats_url eventhandler/publisher --payload='{}'
 docker run -e NATS_URL=$nats_url eventhandler/publisher --payload='{"check_name": "check_foo"}'
 ```
