@@ -1,6 +1,7 @@
 ---
 sender: "nagios.example.com"
-recipient: "me.example.com"
+# passed in as env var
+# recipient: "me.example.com"
 signkey: "verify/testdata/private.key"
 nats_url: "nats://eventhandler-queue:4222"
 subject: "eventhandler"
@@ -29,7 +30,7 @@ filters:
     context: envelope
     args:
       field: "recipient"
-      regexp: "me.example.com"
+      regexp: "subscriber"
   - type: signature
     context: signature
     args:

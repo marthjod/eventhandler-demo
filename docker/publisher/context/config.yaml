@@ -2,7 +2,8 @@
 sender: "nagios.example.com"
 recipient: "me.example.com"
 signkey: "verify/testdata/private.key"
-# nats_url: "nats://eventhandler-queue:4222"
+# passed in as env var
+# nats_url: "nats://<minikube IP>:<nodePort>"
 subject: "eventhandler"
 
 command:
