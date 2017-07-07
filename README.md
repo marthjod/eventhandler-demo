@@ -41,7 +41,7 @@ nats_url="nats://$cluster_ip:$node_port"
 ```bash
 # git clone, go build etc.
 export NATS_URL=$nats_url
-export RECIPIENT=<subcriber pod>
+export RECIPIENT=<subscriber pod>
 ./eventhandler publish --payload='{"check_name": "check_foo"}'
 ```
 
