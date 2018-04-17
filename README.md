@@ -5,6 +5,7 @@
 Build against minikube cluster Docker daemon.
 
 ```bash
+minikube start
 eval $(minikube docker-env)
 # once
 for role in queue base subscriber; do
